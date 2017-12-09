@@ -2,9 +2,19 @@ import discord
 import asyncio
 import random
 import re
+import json
 
 client = discord.Client()
 userdict = {}
+map = []
+data = open("data.json","r")
+jsonData = json.load(data)
+API_Key = jsonData["API_Key"]
+Map = jsonData["MAP"]
+for Key,Value in jsonData["MAP"].items():
+    if  Value == 1:
+        map.append(Key)
+print(map)
 
 @client.event
 async def on_ready():
@@ -16,17 +26,14 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global userdict
+    global map
     print("message : ",message.content)
     if message.content.startswith('!addme'):
         messagesplit = message.content.split(' ',1)
         username = message.author.name
-        level = 0
-        if messagesplit[1] == 'pro':
-          level = 1
-          userdict.update({username:level})
-          await client.send_message(message.channel, '{} add shuffle users list.'.format(message.author.name))
-        else:
-          await client.send_message(message.channel, '\'!addme\' or \'!addme pro\' only can use.')
+        level = 1
+        userdict.update({username:level})
+        await client.send_message(message.channel, '{} add shuffle users list.'.format(message.author.name))
         print(userdict)
 
     elif message.content.startswith('!flushme'):
@@ -38,6 +45,9 @@ async def on_message(message):
         userdict.clear()
         await client.send_message(message.channel, "flush all user list data.")
         print(userdict)
+
+    elif message.content.startswith('!map'):
+         await client.send_message(message.channel, random.choice(map))
 
     elif message.content.startswith('!showlist'):
         await client.send_message(message.channel, userdict)
@@ -55,7 +65,8 @@ async def on_message(message):
         userlist = list(userdict.keys())
         random.shuffle(userlist)
         print(userlist)
-        desc = ""
+        desc = "Map : "
+        desc = desc + random.choice(map) + "\n"
         if len(userlist) % 2 == 0:
           for x in range(0,len(userlist),2):
             desc = desc + str(userlist[x])
@@ -110,4 +121,4 @@ async def on_message(message):
         await client.send_message(message.channel, 'Done sleeping')
 
 
-client.run('API_Key')
+client.run(API_Key)

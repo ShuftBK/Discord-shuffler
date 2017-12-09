@@ -1,0 +1,22 @@
+{
+  "API_Key": "YOUR_API_Key",
+  "MAP": {
+    "PRESIDENTAL PLANE": 1,
+    "OREGON": 1,
+    "KANAL": 1,
+    "KAFEDOSTOYEVSKY": 1,
+    "HOUSE": 1,
+    "CLUBHOUSE": 1,
+    "HEREFORD BASE": 1,
+    "CONSULATE": 1,
+    "CHALET": 1,
+    "BANK": 1,
+    "YACHT": 0,
+    "BORDER": 1,
+    "FAVELA": 0,
+    "SKYCRAPER": 1,
+    "BARTLETT UNIVERSITY": 1,
+    "COASTLINE": 1,
+    "TOWER": 1
+  }
+}
