@@ -11,6 +11,7 @@ data = open("data.json","r")
 jsonData = json.load(data)
 API_Key = jsonData["API_Key"]
 Map = jsonData["MAP"]
+
 for Key,Value in jsonData["MAP"].items():
     if  Value == 1:
         map.append(Key)
@@ -28,12 +29,20 @@ async def on_message(message):
     global userdict
     global map
     print("message : ",message.content)
+
     if message.content.startswith('!addme'):
         username = message.author.name
         level = 1
         userdict.update({username:level})
         await client.send_message(message.channel, '{} add shuffle users list.'.format(username))
         print(userdict)
+
+    elif message.content.startswith('!addall'):
+        channelid = message.content.split(' ',1)[1]
+        for member in client.get_channel(channelid).voice_members:
+            level = 1
+            userdict.update({member.name:level})
+            print(member.name)
 
     elif message.content.startswith('!add'):
         username = message.content.split(' ',1)[1]
@@ -48,21 +57,21 @@ async def on_message(message):
         await client.send_message(message.channel, 'flush {} list data.'.format(message.author.name))
         print(userdict)
 
+    elif message.content.startswith('!flushall'):
+        userdict.clear()
+        await client.send_message(message.channel, "flush all user list data.")
+        print(userdict)
+
     elif message.content.startswith('!flush'):
         username = message.content.split(' ',1)[1]
         del userdict[message.author.name]
         await client.send_message(message.channel, 'flush {} list data.'.format(message.author.name))
         print(userdict)
 
-    elif message.content.startswith('!flushall'):
-        userdict.clear()
-        await client.send_message(message.channel, "flush all user list data.")
-        print(userdict)
-
     elif message.content.startswith('!map'):
          await client.send_message(message.channel, random.choice(map))
 
-    elif message.content.startswith('!showlist'):
+    elif message.content.startswith('!show'):
         await client.send_message(message.channel, userdict)
         print(userdict)
 
