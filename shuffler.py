@@ -72,6 +72,7 @@ async def on_message(message):
          await client.send_message(message.channel, random.choice(map))
 
     elif message.content.startswith('!show'):
+        await client.send_message(message.channel, "Total User :" + str(len(userdict)))
         await client.send_message(message.channel, userdict)
         print(userdict)
 
@@ -89,6 +90,7 @@ async def on_message(message):
         print(userlist)
         desc = "Map : "
         desc = desc + random.choice(map) + "\n"
+        desc = "Blue Team\t\t\t|\t\t\t Orange Team\n"
         if len(userlist) % 2 == 0:
           for x in range(0,len(userlist),2):
             desc = desc + str(userlist[x])
@@ -96,10 +98,6 @@ async def on_message(message):
             desc = desc + "|\t"
             desc = desc + userlist[x+1] + "\n"
             
-          em = discord.Embed(title='Team Death Match Custom Game Shuffle Result', type="rich",description=desc, colour=0xDEADBF)
-          em.set_author(name='Someone', icon_url=client.user.default_avatar_url)
-          await client.send_message(message.channel, embed=em)
-
         else:
           for x in range(0,len(userlist),2):
             desc = desc + str(userlist[x])
@@ -110,9 +108,7 @@ async def on_message(message):
             else:
               desc = desc + ""
             
-          em = discord.Embed(title='Team Death Match Custom Game Shuffle Result', type="rich",description=desc, colour=0xDEADBF)
-          em.set_author(name='Someone', icon_url=client.user.default_avatar_url)
-          await client.send_message(message.channel, embed=em)
+        await client.send_message(message.channel, desc)
 
     elif message.content.startswith('!yo'):
         await client.send_message(message.channel, 'yo')
