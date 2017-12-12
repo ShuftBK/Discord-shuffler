@@ -3,6 +3,7 @@ import asyncio
 import random
 import re
 import json
+import math
 
 client = discord.Client()
 userdict = {}
@@ -90,24 +91,16 @@ async def on_message(message):
         print(userlist)
         desc = "Map : "
         desc = desc + random.choice(map) + "\n"
-        desc = "Blue Team\t\t\t|\t\t\t Orange Team\n"
-        if len(userlist) % 2 == 0:
-          for x in range(0,len(userlist),2):
-            desc = desc + str(userlist[x])
-            desc = desc + "\t\t\t\t\t"
-            desc = desc + "|\t"
-            desc = desc + userlist[x+1] + "\n"
-            
-        else:
-          for x in range(0,len(userlist),2):
-            desc = desc + str(userlist[x])
-            desc = desc + "\t\t\t\t\t"
-            desc = desc + "|\t"
-            if(x != len(userlist)-1):
-              desc = desc + userlist[x+1] + "\n"
-            else:
-              desc = desc + ""
-            
+        # desc = "Blue Team\t\t\t|\t\t\t Orange Team\n"
+        
+        userlen = len(userlist)
+        for i in range(userlen)):
+            if(i == 0):
+                desc += "Blue Team : "
+            elif(i == math.floor(userlen/2)):
+                desc += "\nOrange Team : "
+            desc += userlist[i] + ", "
+
         await client.send_message(message.channel, desc)
 
     elif message.content.startswith('!yo'):
