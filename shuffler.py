@@ -78,7 +78,7 @@ async def on_message(message):
         print(userdict)
 
     elif message.content.startswith('!testpro'):
-        userdict.update({"luna":1,"Uroro":1,"kiritan":1,"Qoo":1,"eigo":1,"homuman":1})
+        userdict.update({"luna":1,"Uroro":1,"kiritan":1,"Qoo":1,"Testudines":1,"homuman":1})
         print(userdict)
 
     elif message.content.startswith('!testdata'): 
@@ -96,10 +96,13 @@ async def on_message(message):
         userlen = len(userlist)
         for i in range(userlen):
             if(i == 0):
-                desc += "Blue Team : "
+                desc += "```Blue Team : "
             elif(i == math.floor(userlen/2)):
                 desc += "\nOrange Team : "
             desc += userlist[i] + ", "
+
+        else:
+            desc += "```"
 
         await client.send_message(message.channel, desc)
 
@@ -130,6 +133,5 @@ async def on_message(message):
     elif message.content.startswith('!sleep'):
         await asyncio.sleep(5)
         await client.send_message(message.channel, 'Done sleeping')
-
 
 client.run(API_Key)
