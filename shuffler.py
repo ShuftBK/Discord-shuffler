@@ -94,7 +94,7 @@ async def on_message(message):
         # desc = "Blue Team\t\t\t|\t\t\t Orange Team\n"
         
         userlen = len(userlist)
-        for i in range(userlen)):
+        for i in range(userlen):
             if(i == 0):
                 desc += "Blue Team : "
             elif(i == math.floor(userlen/2)):
