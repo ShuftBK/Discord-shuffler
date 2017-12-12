@@ -13,7 +13,7 @@ jsonData = json.load(data)
 API_Key = jsonData["API_Key"]
 Map = jsonData["MAP"]
 
-for Key,Value in jsonData["MAP"].items():
+for Key,Value in Map:
     if  Value == 1:
         map.append(Key)
 print(map)
@@ -81,7 +81,7 @@ async def on_message(message):
         userdict.update({"luna":1,"Uroro":1,"kiritan":1,"Qoo":1,"Testudines":1,"homuman":1})
         print(userdict)
 
-    elif message.content.startswith('!testdata'): 
+    elif message.content.startswith('!testdata'):
         userdict.update({"sukeil":0,"Olympia":0,"dottonandana":0})
         print(userdict)
 
@@ -92,7 +92,7 @@ async def on_message(message):
         desc = "Map : "
         desc = desc + random.choice(map) + "\n"
         # desc = "Blue Team\t\t\t|\t\t\t Orange Team\n"
-        
+
         userlen = len(userlist)
         for i in range(userlen):
             if(i == 0):
@@ -110,11 +110,21 @@ async def on_message(message):
         await client.send_message(message.channel, 'yo')
 
     elif message.content.startswith('!help'):
-        desc = "!addme\t-> add list \n!flush\t\t-> delete list \n!flushall\t-> delete all user\n!map\t-> choice map\n!shuffle\t-> shuffle list and display result \n!showlist\t-> show user list \n\n Debug Commands\n!testdata\t-> insert test data to list"
+        desc = '''
+                !addme\t-> add list \n
+                !flush\t\t-> delete list \n
+                !flushall\t-> delete all user\n
+                !map\t-> choice map\n
+                !shuffle\t-> shuffle list and display result \n
+                !showlist\t-> show user list \n
+                \n
+                Debug Commands\n!
+                testdata\t-> insert test data to list
+                '''
         em = discord.Embed(title='Shuffler Help Command List', type="rich",description=desc, colour=0xDEADBF)
         em.set_author(name='Someone', icon_url=client.user.default_avatar_url)
         await client.send_message(message.channel, embed=em)
-     
+
     elif message.content.startswith('!test'):
         print(message.content.split(' ',1))
         messagesplit = message.content.split(' ',1)
