@@ -28,7 +28,7 @@ async def on_message(message):
     print("message : ", text)
 
 
-    if(text[0] == '!'):
+    if(text[0] == '$'):
         command = text[1:].split()[0]
         if(command in commands.commands):
             await commands.commands[command](message, users=users, map=map)

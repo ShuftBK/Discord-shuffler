@@ -46,9 +46,10 @@ async def flushall(message, **kwargs):
 @client.event
 async def flush(message, **kwargs):
     users = kwargs.get('users', None)
-    username = message.content.split(' ',1)[1]
-    del users[message.author.name]
-    await client.send_message(message.channel, 'flush {} list data.'.format(message.author.name))
+    name = message.content.split(' ',1)[1]
+    if(name in users.keys()):
+        del users[name]
+    await client.send_message(message.channel, 'flush {} list data.'.format(name))
 
 @client.event
 async def map(message, **kwargs):
@@ -111,7 +112,7 @@ commands = {
     'add' : add,
     'flushme' : flushme,
     'flushall' : flushall,
-    'flushme' : flushme,
+    'flush' : flush,
     'map' : map,
     'show' : show,
     'testdata' : testdata,
