@@ -13,7 +13,7 @@ async def addme(message, **kwargs):
     name = message.author.name
     level = 1
     users[name] = level
-    await client.send_message(message.channel, '{} add shuffle users list.'.format(name))
+    await client.send_message(message.channel, f'{name} add shuffle users list.')
 
 @client.event
 async def addall(message, **kwargs):
@@ -26,16 +26,17 @@ async def addall(message, **kwargs):
 @client.event
 async def add(message, **kwargs):
     users = kwargs.get('users', None)
-    name = message.content.split(' ', 1)[1]
+    name = message.content.split(' ')[1:]
     level = 1
-    users[name] = level
-    await client.send_message(message.channel, '{} add shuffle users list.'.format(name))
+    for i in range(len(name)):
+        users[name[i]] = level
+        await client.send_message(message.channel, f'{name[i]} add shuffle users list.')
 
 @client.event
 async def flushme(message, **kwargs):
     users = kwargs.get('users', None)
     del users[message.author.name]
-    await client.send_message(message.channel, 'flush {} list data.'.format(message.author.name))
+    await client.send_message(message.channel, f'flush {message.author.name} list data.')
 
 @client.event
 async def flushall(message, **kwargs):
@@ -46,10 +47,11 @@ async def flushall(message, **kwargs):
 @client.event
 async def flush(message, **kwargs):
     users = kwargs.get('users', None)
-    name = message.content.split(' ',1)[1]
-    if(name in users.keys()):
-        del users[name]
-    await client.send_message(message.channel, 'flush {} list data.'.format(name))
+    name = message.content.split(' ')[1:]
+    for i in range(len(name)):
+        if(name[i] in users.keys()):
+            del users[name[i]]
+            await client.send_message(message.channel, f'flush {name[i]} list data.')
 
 @client.event
 async def map(message, **kwargs):
